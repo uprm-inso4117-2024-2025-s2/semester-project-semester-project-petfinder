@@ -27,7 +27,7 @@ communicate with the owner in case of the pet being found.
 - Handle Alert System for Real-Time notifications.
 - Implement Geofencing features to ensure accurate location based notifications.
   
-**Backend and Infra Team**
+**Backend and Infrastructure Team**
 - Create Database Schema.
 - Design and maintain database.
 - Create an API that handles interactions between frontend and backend.
