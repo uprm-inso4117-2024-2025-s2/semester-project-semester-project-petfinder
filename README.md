@@ -33,3 +33,5 @@ communicate with the owner in case of the pet being found.
 - Create an API that handles interactions between frontend and backend.
 - Handle server-side logic for storing lost pet reports and alert history. 
 
+**React Native setup guide and introduction document:
+https://docs.google.com/document/d/1VV3QAmizonkolPNhmcbTgS9lNSZJx_sUYqOqhqKeG4Q/edit?usp=sharing 
