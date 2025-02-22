@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import { supabase } from "../../lib/supabase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -55,12 +55,14 @@ export default function LoginScreen() {
     };
 
     return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
-            <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 20 }}>Login</Text>
+        <View style={styles.container}>
+            <Text style={styles.appTitle}>PetFinder</Text>
+            <Text style={styles.title}>Sign in to your Account</Text>
+            <Text style={styles.subtitle}>Enter your email and password to log in</Text>
 
             <TextInput
                 placeholder="Email"
-                style={{ width: "100%", borderWidth: 1, padding: 10, marginBottom: 10, borderRadius: 5 }}
+                style={styles.input}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 value={email}
@@ -69,31 +71,148 @@ export default function LoginScreen() {
 
             <TextInput
                 placeholder="Password"
-                style={{ width: "100%", borderWidth: 1, padding: 10, marginBottom: 10, borderRadius: 5 }}
+                style={styles.input}
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
             />
 
+            <TouchableOpacity style={styles.forgotPassword}>
+                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            </TouchableOpacity>
+
             {!requiresOtp ? (
-                <TouchableOpacity onPress={handleLogin} style={{ backgroundColor: "#3498db", padding: 12, borderRadius: 5, width: "100%", alignItems: "center" }}>
-                    <Text style={{ color: "#fff", fontWeight: "bold" }}>Login</Text>
+                <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+                    <Text style={styles.loginButtonText}>Log In</Text>
                 </TouchableOpacity>
             ) : (
                 <>
                     <TextInput
                         placeholder="Enter OTP"
-                        style={{ width: "100%", borderWidth: 1, padding: 10, marginBottom: 10, borderRadius: 5 }}
+                        style={styles.input}
                         keyboardType="numeric"
                         value={otp}
                         onChangeText={setOtp}
                     />
 
-                    <TouchableOpacity onPress={verifyOtp} style={{ backgroundColor: "green", padding: 12, borderRadius: 5, width: "100%", alignItems: "center" }}>
-                        <Text style={{ color: "#fff", fontWeight: "bold" }}>Verify OTP</Text>
+                    <TouchableOpacity onPress={verifyOtp} style={styles.verifyButton}>
+                        <Text style={styles.verifyButtonText}>Verify OTP</Text>
                     </TouchableOpacity>
                 </>
             )}
+
+            <TouchableOpacity style={styles.googleButton}>
+                <Text style={styles.googleButtonText}>Continue with Google</Text>
+            </TouchableOpacity>
+
+            <View style={styles.signupContainer}>
+                <Text style={styles.signupText}>Don't have an account? </Text>
+                <TouchableOpacity onPress={() => router.replace("/signup")}>
+                    <Text style={styles.signupLink}>Sign Up</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        padding: 20,
+        backgroundColor: "#ffffff",
+    },
+    appTitle: {
+        fontSize: 32,
+        fontWeight: "bold",
+        color: "#81C090",
+        textAlign: "center",
+        marginBottom: 10,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: "bold",
+        color: "#333333",
+        marginBottom: 10,
+        textAlign: "center",
+    },
+    subtitle: {
+        fontSize: 16,
+        color: "#666666",
+        marginBottom: 20,
+        textAlign: "center",
+    },
+    input: {
+        width: "100%",
+        height: 50,
+        borderColor: "#cccccc",
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        marginBottom: 15,
+        fontSize: 16,
+        color: "#333333",
+    },
+    forgotPassword: {
+        alignSelf: "flex-end",
+        marginBottom: 20,
+    },
+    forgotPasswordText: {
+        color: "#16A849",
+        fontSize: 14,
+    },
+    loginButton: {
+        backgroundColor: "#16A849",
+        padding: 15,
+        borderRadius: 8,
+        width: "100%",
+        alignItems: "center",
+        marginBottom: 20,
+    },
+    loginButtonText: {
+        color: "#ffffff",
+        fontSize: 16,
+        fontWeight: "bold",
+    },
+    verifyButton: {
+        backgroundColor: "green",
+        padding: 15,
+        borderRadius: 8,
+        width: "100%",
+        alignItems: "center",
+        marginBottom: 20,
+    },
+    verifyButtonText: {
+        color: "#ffffff",
+        fontSize: 16,
+        fontWeight: "bold",
+    },
+    googleButton: {
+        backgroundColor: "#ffffff",
+        padding: 15,
+        borderRadius: 8,
+        width: "100%",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "#cccccc",
+        marginBottom: 20,
+    },
+    googleButtonText: {
+        color: "#333333",
+        fontSize: 16,
+        fontWeight: "bold",
+    },
+    signupContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+    signupText: {
+        color: "#666666",
+        fontSize: 14,
+    },
+    signupLink: {
+        color: "#16A849",
+        fontSize: 14,
+        fontWeight: "bold",
+    },
+});
